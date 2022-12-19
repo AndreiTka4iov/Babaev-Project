@@ -21,5 +21,25 @@
 
 <body>
     <header>
-        
+        <div class="flex-header">
+            <a href="/" class="home-header">
+                <svg>
+                    <use xlink:href="/main.svg#home-svg"></use>
+                </svg>
+                Home
+            </a>
+            <div class="search">
+                <input type="text" placeholder="Search....">
+                <button>
+                    <svg>
+                        <use xlink:href="/main.svg#search-svg"></use>
+                    </svg>
+                </button>
+            </div>
+            <div class="auth-btn">
+                <span class="auth">Sign in</span>
+                <span>or</span>
+                <span class="auth" onclick="openAuth('signUp')">Sign up</span>
+            </div>
+        </div>
     </header>

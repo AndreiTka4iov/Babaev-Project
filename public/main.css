@@ -94,16 +94,14 @@ pre {
     scroll-behavior: auto !important;
   }
 }
-html {
-  overflow-y: scroll;
-  width: 100%;
-}
-
 body {
   position: relative;
+  display: flex;
+  flex-direction: column;
   width: 100%;
   text-align: center;
   font-family: "Roboto", sans-serif;
+  overflow-y: scroll;
 }
 
 a {
@@ -121,6 +119,15 @@ input {
 }
 input:focus-visible {
   outline: 0;
+}
+input::-moz-placeholder {
+  color: lightgray;
+}
+input:-ms-input-placeholder {
+  color: lightgray;
+}
+input::placeholder {
+  color: lightgray;
 }
 
 textarea {
@@ -144,6 +151,278 @@ button {
 header {
   width: 100%;
   height: 60px;
-  display: flex;
   background: lightseagreen;
+  color: white;
+}
+header .flex-header {
+  width: 80%;
+  height: 60px;
+  margin: auto;
+  padding: 12px;
+  display: flex;
+  justify-content: space-between;
+}
+header .flex-header a {
+  display: inline-block;
+  color: white;
+  line-height: 36px;
+  display: flex;
+  justify-content: space-between;
+  width: 100px;
+  height: 36px;
+  transition: color 0.2s;
+}
+header .flex-header a svg {
+  width: 36px;
+  height: 36px;
+  fill: white;
+  transition: fill 0.2s;
+}
+header .flex-header a:hover {
+  color: lightgrey;
+}
+header .flex-header a:hover svg {
+  fill: lightgrey;
+}
+header .flex-header .search {
+  width: calc(80% - 284px);
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid white;
+  display: flex;
+}
+header .flex-header .search input {
+  width: calc(100% - 36px);
+  height: 36px;
+  padding: 0 10px;
+  color: white;
+}
+header .flex-header .search button {
+  width: 36px;
+  height: 36px;
+}
+header .flex-header .search button svg {
+  width: 24px;
+  height: 24px;
+  fill: white;
+  transition: fill 0.2s;
+}
+header .flex-header .search button:hover svg {
+  fill: lightgrey;
+}
+header .flex-header .auth-btn {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: 36px;
+  display: flex;
+}
+header .flex-header .auth-btn .auth {
+  text-decoration: underline;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  cursor: pointer;
+  transition: color 0.2s;
+  margin: 0;
+}
+header .flex-header .auth-btn .auth:hover {
+  color: lightgrey;
+}
+header .flex-header .auth-btn span {
+  line-height: 36px;
+  font-size: 20px;
+  margin: 0 6px;
+}
+
+@media screen and (max-width: 1000px) {
+  header .flex-header {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 600px) {
+  header .flex-header .search {
+    width: calc(100% - 284px);
+  }
+}
+@media screen and (max-width: 450px) {
+  header .flex-header .home-header {
+    font-size: 0;
+    width: 36px;
+  }
+  header .flex-header .search {
+    width: calc(100% - 180px);
+  }
+  header .flex-header .auth-btn .auth {
+    font-size: 16px;
+  }
+  header .flex-header .auth-btn span {
+    font-size: 16px;
+  }
+}
+footer {
+  width: 100%;
+  height: 60px;
+  background-color: lightseagreen;
+  margin-top: auto;
+}
+footer .flex-footer {
+  position: relative;
+  width: 80%;
+  height: 60px;
+  padding: 12px;
+  margin: auto;
+}
+footer .flex-footer hr {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid white;
+  color: white;
+  background-color: white;
+  margin: 18px 0;
+}
+footer .flex-footer a {
+  position: absolute;
+  left: calc(50% - 50px);
+  top: 0;
+  display: inline-block;
+  width: 100px;
+  height: 60px;
+  padding: 12px;
+  background-color: lightseagreen;
+}
+footer .flex-footer a svg {
+  width: 36px;
+  height: 36px;
+  margin: auto;
+  fill: white;
+  transition: fill 0.2s;
+}
+footer .flex-footer a:hover svg {
+  fill: lightgrey;
+}
+
+.bluray {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  z-index: 10;
+}
+.bluray.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.sign-in {
+  position: absolute;
+  top: calc(50% - 260px);
+  left: calc(50% - 200px);
+  width: 400px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  background-color: white;
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+.sign-in.show {
+  opacity: 1;
+  pointer-events: all;
+}
+.sign-in .close-line {
+  width: 100%;
+  height: 50px;
+  display: flex;
+}
+.sign-in .close-line span {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  padding: 6px;
+  margin-left: auto;
+  cursor: pointer;
+}
+.sign-in .close-line span svg {
+  width: 32px;
+  height: 32px;
+  transition: fill 0.2s;
+}
+.sign-in .close-line span:hover {
+  fill: grey;
+}
+.sign-in img {
+  width: 100px;
+  height: 100px;
+  margin: auto;
+}
+.sign-in .inp-block {
+  width: 80%;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  margin: 50px auto;
+  text-align: left;
+  color: grey;
+}
+.sign-in .inp-block input {
+  width: 100%;
+  height: 36px;
+  border: 1px solid grey;
+  border-radius: 10px;
+  margin: 6px 0;
+  padding: 0 10px;
+}
+.sign-in .inp-block .password {
+  display: flex;
+  width: 100%;
+  height: 36px;
+  border: 1px solid grey;
+  border-radius: 10px;
+  margin: 6px 0;
+}
+.sign-in .inp-block .password input {
+  width: calc(100% - 36px);
+  margin: 0;
+  border: 0;
+}
+.sign-in .inp-block .password span {
+  display: inline-block;
+  width: 36px;
+  height: 36px;
+  padding: 6px;
+  cursor: pointer;
+}
+.sign-in .inp-block .password span svg {
+  width: 24px;
+  height: 24px;
+  fill: grey;
+}
+.sign-in .inp-block .password span:hover svg {
+  fill: lightseagreen;
+}
+.sign-in button {
+  width: calc(100% - 24px);
+  height: 50px;
+  line-height: 50px;
+  font-size: 20px;
+  color: lightseagreen;
+  border-top: 1px solid lightgrey;
+  transition: color 0.2s;
+}
+.sign-in button:hover {
+  color: grey;
+}
+
+@media screen and (max-width: 430px) {
+  .sign-in {
+    width: 90%;
+    left: 5%;
+  }
 }/*# sourceMappingURL=main.css.map */

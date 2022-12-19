@@ -1,3 +1,5 @@
+$secondcolor: lightseagreen;
+
 *,
 *::before,
 *::after {
@@ -95,16 +97,14 @@ pre{
 
 //end of defaults
 
-html {
-    overflow-y: scroll;
-    width: 100%;
-}
-
 body {
     position: relative;
+    display: flex;
+    flex-direction: column;
     width: 100%;
     text-align: center;
     font-family: 'Roboto', sans-serif;
+    overflow-y: scroll;
 }
 
 a {
@@ -123,6 +123,10 @@ input {
 
     &:focus-visible{
         outline: 0;
+    }
+
+    &::placeholder{
+        color: lightgray;
     }
 }
 
@@ -150,6 +154,337 @@ button{
 header{
     width: 100%;
     height: 60px;
-    display: flex;
-    background: lightseagreen;
+    background: $secondcolor;
+    color: white;
+
+    .flex-header{
+        width: 80%;
+        height: 60px;
+        margin: auto;
+        padding: 12px;
+        display: flex;
+        justify-content: space-between;
+
+        a{
+            display: inline-block;
+            color: white;
+            line-height: 36px;
+            display: flex;
+            justify-content: space-between;
+            width: 100px;
+            height: 36px;
+            transition: color .2s;
+
+            svg{
+                width: 36px;
+                height: 36px;
+                fill: white;
+                transition: fill .2s;
+            }
+
+            &:hover{
+                color: lightgrey;
+
+                svg{
+                    fill: lightgrey;
+                }
+            }
+        }
+
+        .search{
+            width: calc(80% - 284px);
+            height: 36px;
+            border-radius: 10px;
+            border: 1px solid white;
+            display: flex;
+
+            input{
+                width: calc(100% - 36px);
+                height: 36px;
+                padding: 0 10px;
+                color: white;
+            }
+
+            button{
+                width: 36px;
+                height: 36px;
+
+                svg{
+                    width: 24px;
+                    height: 24px;
+                    fill: white;
+                    transition: fill .2s;
+                }
+
+                &:hover{
+                    svg{
+                        fill: lightgrey;
+                    }
+                }
+            }
+        }
+
+        .auth-btn{
+            width: fit-content;
+            height: 36px;
+            display: flex;
+
+            .auth{
+                text-decoration: underline;
+                width: fit-content;
+                cursor: pointer;
+                transition: color .2s;
+                margin: 0;
+
+                &:hover{
+                    color: lightgrey;
+                }
+            }
+
+            span {
+                line-height: 36px;
+                font-size: 20px;
+                margin: 0 6px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1000px){
+    header{    
+        .flex-header{
+            width: 100%;
+        }
+    }
+}
+
+@media screen and (max-width: 600px){
+    header{    
+        .flex-header{    
+            .search{
+                width: calc(100% - 284px);
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 450px){
+    header{    
+        .flex-header{    
+            .home-header{
+               font-size: 0;
+               width: 36px;  
+            }
+    
+            .search{
+                width: calc(100% - 180px);
+            }
+    
+            .auth-btn{
+                .auth{
+                    font-size: 16px;
+                }
+    
+                span {
+                    font-size: 16px;
+                }
+            }
+        }
+    }
+}
+
+//footer css
+
+footer{
+    width: 100%;
+    height: 60px;
+    background-color: $secondcolor; 
+    margin-top: auto;
+
+    .flex-footer{
+        position: relative;
+        width: 80%;
+        height: 60px;
+        padding: 12px;
+        margin: auto;
+
+        hr{
+            width: 100%;
+            border: 0;
+            border-bottom: 1px solid white;
+            color: white;
+            background-color: white;
+            margin: 18px 0;
+        }
+
+        a{
+            position: absolute;
+            left: calc(50% - 50px);
+            top: 0;
+            display: inline-block;
+            width: 100px;
+            height: 60px;
+            padding: 12px;
+            background-color: $secondcolor;
+
+            svg{
+                width: 36px;
+                height: 36px;
+                margin: auto;
+                fill: white;
+                transition: fill .2s;
+            }
+
+            &:hover{
+                svg{
+                    fill: lightgrey;
+                }
+            }
+        }
+    }
+}
+
+//bluray 
+
+.bluray{
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .2s;
+    z-index: 10;
+
+    &.show{
+        opacity: 1;
+        pointer-events: all;
+    }
+}
+
+//sign-up
+
+.sign-in{
+    position: absolute;
+    top: calc(50% - 260px);
+    left: calc(50% - 200px);
+    width: 400px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    background-color: white;
+    opacity: 0;
+    overflow: hidden;
+    pointer-events: none;
+    transition: opacity .2s;
+
+    &.show{
+        opacity: 1;
+        pointer-events: all;
+    }
+
+    .close-line{
+        width: 100%;
+        height: 50px;
+        display: flex;
+
+        span{
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            padding: 6px;
+            margin-left: auto;
+            cursor: pointer;
+
+            svg{
+                width: 32px;
+                height: 32px;
+                transition: fill .2s;
+            }
+
+            &:hover{
+                fill: grey;
+            }
+        }
+    }
+
+    img{
+        width: 100px;
+        height: 100px;
+        margin: auto;
+    }
+
+    .inp-block{
+        width: 80%;
+        height: fit-content;
+        margin: 50px auto;
+        text-align: left;
+        color: grey;
+
+        input{
+            width: 100%;
+            height: 36px;
+            border: 1px solid grey;
+            border-radius: 10px;
+            margin: 6px 0;
+            padding: 0 10px;
+        }
+
+        .password{
+            display: flex;
+            width: 100%;
+            height: 36px;
+            border: 1px solid grey;
+            border-radius: 10px;
+            margin: 6px 0;
+
+            input{
+                width: calc(100% - 36px);
+                margin: 0;
+                border: 0;
+            }
+
+            span{
+                display: inline-block;
+                width: 36px;
+                height: 36px;
+                padding: 6px;
+                cursor: pointer;
+
+                svg{
+                    width: 24px;
+                    height: 24px;
+                    fill: grey;
+                }
+
+                &:hover{
+                    svg{
+                        fill: $secondcolor;
+                    }
+                }
+            }
+        }
+    }
+
+    button{
+        width: calc(100% - 24px);
+        height: 50px;
+        line-height: 50px;
+        font-size: 20px;
+        color: $secondcolor;
+        border-top: 1px solid lightgrey;
+        transition: color .2s;
+
+        &:hover{
+            color: grey;
+        }
+    }
+}
+
+@media screen and (max-width: 430px){
+    .sign-in{
+        width: 90%;
+        left: 5%;    
+    }
 }

@@ -1,0 +1,32 @@
+<div class="bluray log">
+    <form class="sign" onsubmit="signInFunc(this); return false;">
+        <div class="close-line">
+            <span onclick="clickOnClose(this)">
+                <svg>
+                    <use xlink:href="/main.svg#close-svg"></use>
+                </svg>
+            </span>
+        </div>
+        <img src="/images/logo.svg" alt="">
+        <div class="inp-block">
+            <h3>Enter your username:</h3>
+            <input type="text" name="login" class="login" placeholder="Username..." required>
+            <span class="err"></span>
+            <h3>Enter your password:</h3>
+            <div class="password">
+                <input type="password" class="pass" name="password" placeholder="Password..." required>
+                <span onclick="showPass(this)">
+                    <svg>
+                        <use xlink:href="/main.svg#eye-svg"></use>
+                    </svg>
+                </span>
+            </div>            
+        </div>
+        <button name="signIn">Sign in</button>
+        <div class="loader">
+            <div class="loader-parrent">
+                <div></div>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,9 +1,23 @@
 <%- include('header-template', { title: locals.title, activeHeader: locals.activeHeader, headLink: locals.headLink, homePage: locals.homePage, token: locals.token}) %>
 <%- include('pages/auth/sign-up') %>
+<%- include('pages/auth/sign-in') %>
+
 <%
 switch(locals.page) { 
     case 'Home': %>
     <%- include('pages/home') %>
+    <% break;
+
+    case 'Item': %>
+    <%- include('pages/item') %>
+    <% break;
+
+    case 'admin': %>
+    <%- include('pages/admin/admin') %>
+    <% break;
+
+    case 'Error': %>
+    <%- include('pages/error') %>
     <% break;
 
     default: %>

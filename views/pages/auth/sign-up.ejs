@@ -1,5 +1,5 @@
-<div class="bluray reg " onclick="clickOnBluray(this)">
-    <div class="sign-in ">
+<div class="bluray reg ">
+    <form class="sign" onsubmit="signUpFunc(this); return false;">
         <div class="close-line">
             <span onclick="clickOnClose(this)">
                 <svg>
@@ -10,11 +10,11 @@
         <img src="/images/logo.svg" alt="">
         <div class="inp-block">
             <h3>Enter your username:</h3>
-            <input type="text" name="login" placeholder="Username...">
+            <input type="text" name="login" class="login" placeholder="Username..." required oninput="checkInp(this)">
             <h3>Enter your password:</h3>
             <div class="password">
-                <input type="password" name="password" placeholder="Password...">
-                <span>
+                <input type="password" name="password" class="pass" placeholder="Password..." minlength="8" required>
+                <span onclick="showPass(this)">
                     <svg>
                         <use xlink:href="/main.svg#eye-svg"></use>
                     </svg>
@@ -22,8 +22,8 @@
             </div>
             <h3>Enter your password again:</h3>
             <div class="password">
-                <input type="password" name="passwordAgain" placeholder="Password again...">
-                <span>
+                <input type="password" name="passwordAgain" placeholder="Password again..." required oninput="checkPass(this)">
+                <span onclick="showPass(this)">
                     <svg>
                         <use xlink:href="/main.svg#eye-svg"></use>
                     </svg>
@@ -32,5 +32,10 @@
             
         </div>
         <button>Sign up</button>
-    </div>
+        <div class="loader">
+            <div class="loader-parrent">
+                <div></div>
+            </div>
+        </div>
+    </form>
 </div>

@@ -39,6 +39,7 @@ html:focus-within {
 
 /* Set core body defaults */
 body {
+  overflow: hidden;
   min-height: 100vh;
   text-rendering: optimizeSpeed;
 }
@@ -102,6 +103,7 @@ body {
   text-align: center;
   font-family: "Roboto", sans-serif;
   overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 a {
@@ -149,10 +151,14 @@ button {
 }
 
 header {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
   width: 100%;
   height: 60px;
   background: lightseagreen;
   color: white;
+  z-index: 1;
 }
 header .flex-header {
   width: 80%;
@@ -210,6 +216,9 @@ header .flex-header .search button svg {
 header .flex-header .search button:hover svg {
   fill: lightgrey;
 }
+header .flex-header .burger {
+  display: none;
+}
 header .flex-header .auth-btn {
   width: -webkit-fit-content;
   width: -moz-fit-content;
@@ -234,15 +243,52 @@ header .flex-header .auth-btn span {
   font-size: 20px;
   margin: 0 6px;
 }
+header .flex-header .user-block {
+  display: flex;
+}
+header .flex-header .user-block .profile-btn {
+  width: 36px;
+  height: 36px;
+  margin: 0 6px;
+  cursor: pointer;
+}
+header .flex-header .user-block .profile-btn svg {
+  width: 36px;
+  height: 36px;
+  fill: white;
+  transition: fill 0.2s;
+}
+header .flex-header .user-block .profile-btn:hover svg {
+  fill: lightgrey;
+}
 
 @media screen and (max-width: 1000px) {
   header .flex-header {
     width: 100%;
   }
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 700px) {
   header .flex-header .search {
-    width: calc(100% - 284px);
+    width: calc(100% - 150px);
+  }
+  header .flex-header .burger {
+    display: inline-block;
+    cursor: pointer;
+  }
+  header .flex-header .burger svg {
+    width: 36px;
+    height: 36px;
+    stroke: white;
+    transition: stroke 0.2s;
+  }
+  header .flex-header .burger:hover svg {
+    stroke: lightgrey;
+  }
+  header .flex-header .auth-btn {
+    display: none;
+  }
+  header .flex-header .user-block {
+    display: none;
   }
 }
 @media screen and (max-width: 450px) {
@@ -251,7 +297,7 @@ header .flex-header .auth-btn span {
     width: 36px;
   }
   header .flex-header .search {
-    width: calc(100% - 180px);
+    width: calc(100% - 100px);
   }
   header .flex-header .auth-btn .auth {
     font-size: 16px;
@@ -312,6 +358,7 @@ footer .flex-footer a:hover svg {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.2s;
+  overflow: hidden;
   z-index: 10;
 }
 .bluray.show {
@@ -319,7 +366,7 @@ footer .flex-footer a:hover svg {
   pointer-events: all;
 }
 
-.sign-in {
+.sign {
   position: absolute;
   top: calc(50% - 260px);
   left: calc(50% - 200px);
@@ -332,16 +379,16 @@ footer .flex-footer a:hover svg {
   pointer-events: none;
   transition: opacity 0.2s;
 }
-.sign-in.show {
+.sign.show {
   opacity: 1;
   pointer-events: all;
 }
-.sign-in .close-line {
+.sign .close-line {
   width: 100%;
   height: 50px;
   display: flex;
 }
-.sign-in .close-line span {
+.sign .close-line span {
   display: inline-block;
   width: 50px;
   height: 50px;
@@ -349,20 +396,20 @@ footer .flex-footer a:hover svg {
   margin-left: auto;
   cursor: pointer;
 }
-.sign-in .close-line span svg {
+.sign .close-line span svg {
   width: 32px;
   height: 32px;
   transition: fill 0.2s;
 }
-.sign-in .close-line span:hover {
+.sign .close-line span:hover {
   fill: grey;
 }
-.sign-in img {
+.sign img {
   width: 100px;
   height: 100px;
   margin: auto;
 }
-.sign-in .inp-block {
+.sign .inp-block {
   width: 80%;
   height: -webkit-fit-content;
   height: -moz-fit-content;
@@ -371,7 +418,7 @@ footer .flex-footer a:hover svg {
   text-align: left;
   color: grey;
 }
-.sign-in .inp-block input {
+.sign .inp-block input {
   width: 100%;
   height: 36px;
   border: 1px solid grey;
@@ -379,7 +426,12 @@ footer .flex-footer a:hover svg {
   margin: 6px 0;
   padding: 0 10px;
 }
-.sign-in .inp-block .password {
+.sign .inp-block .err {
+  display: inline-block;
+  margin-bottom: 12px;
+  color: red;
+}
+.sign .inp-block .password {
   display: flex;
   width: 100%;
   height: 36px;
@@ -387,27 +439,27 @@ footer .flex-footer a:hover svg {
   border-radius: 10px;
   margin: 6px 0;
 }
-.sign-in .inp-block .password input {
+.sign .inp-block .password input {
   width: calc(100% - 36px);
   margin: 0;
   border: 0;
 }
-.sign-in .inp-block .password span {
+.sign .inp-block .password span {
   display: inline-block;
   width: 36px;
   height: 36px;
   padding: 6px;
   cursor: pointer;
 }
-.sign-in .inp-block .password span svg {
+.sign .inp-block .password span svg {
   width: 24px;
   height: 24px;
   fill: grey;
 }
-.sign-in .inp-block .password span:hover svg {
+.sign .inp-block .password span:hover svg {
   fill: lightseagreen;
 }
-.sign-in button {
+.sign button {
   width: calc(100% - 24px);
   height: 50px;
   line-height: 50px;
@@ -416,13 +468,602 @@ footer .flex-footer a:hover svg {
   border-top: 1px solid lightgrey;
   transition: color 0.2s;
 }
-.sign-in button:hover {
+.sign button:hover {
   color: grey;
+}
+@-webkit-keyframes ldio-gb0fox8s45 {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+@keyframes ldio-gb0fox8s45 {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+.sign .loader {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: inline-block;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+.sign .loader.show {
+  opacity: 1;
+  pointer-events: all;
+}
+.sign .loader .loader-parrent {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform: translateZ(0) scale(1);
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  transform-origin: 0 0;
+}
+.sign .loader .loader-parrent div {
+  -webkit-animation: ldio-gb0fox8s45 1s linear infinite;
+          animation: ldio-gb0fox8s45 1s linear infinite;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120px;
+  height: 120px;
+  border: 20px solid lightseagreen;
+  border-top-color: transparent;
+  border-radius: 50%;
+  box-sizing: content-box;
 }
 
 @media screen and (max-width: 430px) {
-  .sign-in {
+  .sign {
     width: 90%;
     left: 5%;
   }
+}
+.burger-menu {
+  display: flex;
+  flex-direction: column;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  bottom: 0;
+  margin-left: auto;
+  margin-right: -300px;
+  width: 300px;
+  height: 100vh;
+  background-color: white;
+  transition: 0.2s;
+}
+.burger-menu.show {
+  margin-right: 0;
+}
+.burger-menu .scroll-block {
+  width: 100%;
+  max-height: calc(100vh - 60px);
+  padding: 12px;
+  overflow-y: scroll;
+}
+.burger-menu .scroll-block::-webkit-scrollbar {
+  width: 0;
+}
+.burger-menu .scroll-block h5 {
+  display: inline-block;
+  width: 100%;
+  height: 20px;
+  text-align: left;
+  color: grey;
+  margin: 0;
+}
+.burger-menu .scroll-block .sorting-menu {
+  width: 100%;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+.burger-menu .scroll-block .sorting-menu a {
+  display: inline-block;
+  width: 100%;
+  height: 36px;
+  padding: 12px;
+  line-height: 12px;
+  color: black;
+  text-align: left;
+  transition: 0.2s;
+}
+.burger-menu .scroll-block .sorting-menu a:hover {
+  background-color: rgba(204, 204, 204, 0.4);
+}
+.burger-menu .scroll-block .auth {
+  display: inline-block;
+  width: 100%;
+  height: 36px;
+  line-height: 36px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.burger-menu .scroll-block .auth:hover {
+  background-color: rgba(204, 204, 204, 0.4);
+}
+.burger-menu .scroll-block .user-block {
+  width: 100%;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+.burger-menu .scroll-block .user-block a {
+  display: flex;
+  width: 100%;
+  height: 36px;
+  padding: 6px;
+  line-height: 24px;
+  color: black;
+  transition: color 0.2s;
+}
+.burger-menu .scroll-block .user-block a svg {
+  width: 24px;
+  height: 24px;
+  margin: 0 6px;
+  transition: fill 0.2s;
+}
+.burger-menu .scroll-block .user-block a:hover {
+  color: lightseagreen;
+}
+.burger-menu .scroll-block .user-block a:hover svg {
+  fill: lightseagreen;
+}
+.burger-menu .close {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 60px;
+  padding: 12px;
+  margin-top: auto;
+  cursor: pointer;
+  border-top: 1px solid lightgrey;
+}
+.burger-menu .close svg {
+  width: 36px;
+  height: 36px;
+  margin: 0 6px;
+  fill: lightseagreen;
+  transition: fill 0.2s;
+}
+.burger-menu .close span {
+  display: inline-block;
+  height: 36px;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 36px;
+  color: lightseagreen;
+  text-align: left;
+  transition: color 0.2s;
+}
+.burger-menu .close:hover svg {
+  fill: grey;
+}
+.burger-menu .close:hover span {
+  color: grey;
+}
+
+.home-page {
+  position: relative;
+  width: 100%;
+  min-height: calc(100vh - 120px);
+}
+.home-page .sorting-menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  height: 60px;
+  margin: 0 auto;
+}
+.home-page .sorting-menu a {
+  display: flex;
+  width: 20%;
+  height: 60px;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  padding: 6px;
+  font-size: 18px;
+  transition: 0.2s;
+}
+.home-page .sorting-menu a:hover {
+  background-color: rgba(204, 204, 204, 0.4);
+}
+.home-page .sorting-menu hr {
+  height: 36px;
+}
+.home-page .item-block {
+  width: 80%;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.home-page .item-block .item {
+  width: 300px;
+  margin: 12px;
+  padding: 12px;
+  border: 1px solid lightgrey;
+}
+.home-page .item-block .item img {
+  width: 100%;
+  height: 200px;
+}
+.home-page .item-block .item a {
+  width: 100%;
+  height: 144px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  line-clamp: 6;
+  -webkit-box-orient: vertical;
+  color: black;
+  transition: color 0.2s;
+}
+.home-page .item-block .item a:hover {
+  color: lightseagreen;
+}
+.home-page .item-block .item .flex-btn {
+  width: 100%;
+  height: 36px;
+  display: flex;
+  justify-content: space-between;
+}
+.home-page .item-block .item .flex-btn span {
+  display: inline-block;
+}
+.home-page .item-block .item .flex-btn span svg {
+  width: 36px;
+  height: 36px;
+  fill: lightseagreen;
+  transition: fill 0.2s;
+  cursor: pointer;
+}
+.home-page .item-block .item .flex-btn span svg:hover {
+  fill: grey;
+}
+.home-page .item-block .item .flex-btn .cart {
+  width: 150px;
+  height: 36px;
+  line-height: 36px;
+  background-color: lightseagreen;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 1000px) {
+  .home-page .sorting-menu {
+    width: 100%;
+  }
+  .home-page .item-block {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 700px) {
+  .home-page .sorting-menu {
+    display: none;
+  }
+  .home-page .item-block .item {
+    margin: 12px auto;
+  }
+}
+.item-page {
+  width: 80%;
+  min-height: calc(100vh - 120px);
+  margin: 0 auto;
+  padding: 12px;
+}
+.item-page .flex-block {
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+}
+.item-page .flex-block .img-block {
+  width: 400px;
+  overflow: hidden;
+}
+.item-page .flex-block .img-block img {
+  width: 100%;
+  height: 400px;
+  border: 1px solid grey;
+  border-radius: 5px;
+}
+.item-page .flex-block .img-block .btn {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 60px;
+  padding: 12px 0;
+}
+.item-page .flex-block .img-block .btn span {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+.item-page .flex-block .img-block .btn span svg {
+  width: 40px;
+  height: 40px;
+  fill: lightseagreen;
+  transition: fill 0.2s;
+}
+.item-page .flex-block .img-block .btn span:hover svg {
+  fill: rgba(32, 178, 170, 0.8);
+}
+.item-page .flex-block .img-block .btn .price {
+  width: 100px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 20px;
+  font-weight: bold;
+}
+.item-page .flex-block .img-block .btn .in-cart {
+  width: calc(100% - 152px);
+  height: 40px;
+  background-color: lightseagreen;
+  border-radius: 10px;
+  line-height: 40px;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.item-page .flex-block .img-block .btn .in-cart:hover {
+  background-color: rgba(32, 178, 170, 0.8);
+}
+.item-page .flex-block .text-block {
+  width: calc(100% - 420px);
+  height: 200px;
+  margin: 0 10px;
+  text-align: left;
+}
+.item-page .flex-block .text-block h3 {
+  display: inline-block;
+  width: 100%;
+  font-weight: normal;
+}
+.item-page .flex-block .text-block pre {
+  display: inline-block;
+  width: 100%;
+  margin-top: 12px;
+  color: grey;
+  font-size: 16px;
+}
+.item-page h2 {
+  text-align: left;
+}
+.item-page .recommendation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100;
+  height: 200px;
+  margin-top: auto;
+  overflow: hidden;
+}
+.item-page .recommendation .arrow {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  border: 1px solid lightgrey;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.item-page .recommendation .arrow svg {
+  width: 30px;
+  height: 30px;
+  margin: 9px;
+  transition: fill 0.2s;
+}
+.item-page .recommendation .arrow:hover {
+  background-color: rgba(204, 204, 204, 0.4);
+}
+.item-page .recommendation .arrow:hover svg {
+  fill: lightseagreen;
+}
+.item-page .recommendation .arrow.back svg {
+  transform: rotate(180deg);
+}
+.item-page .recommendation .items {
+  display: flex;
+  width: calc(100% - 100px);
+  height: 200px;
+  overflow-x: scroll;
+}
+.item-page .recommendation .items::-webkit-scrollbar {
+  height: 0;
+}
+.item-page .recommendation .items .href-item {
+  display: inline-block;
+  width: 180px;
+  height: 180px;
+  padding: 6px;
+  margin: 10px;
+  border-radius: 5px;
+  transition: box-shadow 0.2s;
+  overflow: hidden;
+}
+.item-page .recommendation .items .href-item img {
+  width: 100px;
+  height: 100px;
+  border-radius: 5px;
+  margin: auto;
+}
+.item-page .recommendation .items .href-item span {
+  display: inline-block;
+  width: 100%;
+  color: black;
+}
+.item-page .recommendation .items .href-item:hover {
+  box-shadow: 0 0 10px lightgrey;
+}
+
+.error {
+  width: 100%;
+  height: calc(100vh - 120px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.error svg {
+  fill: white;
+  stroke: orange;
+  width: 100px;
+  height: 100px;
+}
+.error h1 {
+  text-transform: uppercase;
+}
+
+.admin-page {
+  display: flex;
+  width: 80%;
+  min-height: calc(100vh - 120px);
+  margin: 0 auto;
+  padding: 12px;
+}
+.admin-page .menu {
+  width: 200px;
+}
+.admin-page .menu .btn {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 50px;
+  padding: 6px;
+  margin: 4px 0;
+  cursor: pointer;
+  line-height: 50px;
+  font-size: 20px;
+  border-radius: 5px;
+  transition: 0.2s;
+}
+.admin-page .menu .btn.add svg {
+  transform: rotate(45deg);
+}
+.admin-page .menu .btn span {
+  display: inline-block;
+  width: calc(100% - 50px);
+  height: 38px;
+  line-height: 38px;
+  color: black;
+}
+.admin-page .menu .btn svg {
+  width: 38px;
+  height: 38px;
+}
+.admin-page .menu .btn:hover {
+  background-color: rgba(204, 204, 204, 0.4);
+}
+.admin-page .screen {
+  width: calc(100% - 200px);
+}
+.admin-page .screen .users {
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.4s;
+  width: 100%;
+}
+.admin-page .screen .users .admins {
+  width: 100%;
+}
+.admin-page .screen .users .admins h3 {
+  display: inline-block;
+  width: 100%;
+  height: 25px;
+  line-height: 25px;
+  padding: 0 12px;
+  text-align: left;
+  background-color: rgba(204, 204, 204, 0.4);
+  border-radius: 5px;
+}
+.admin-page .screen .users .admins .administrator {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  border-radius: 5px;
+}
+.admin-page .screen .users .admins .administrator span {
+  margin: 12px;
+  font-size: 18px;
+}
+.admin-page .screen .users .admins .administrator .remove {
+  cursor: pointer;
+  width: 48px;
+  height: 48px;
+}
+.admin-page .screen .users .admins .administrator .remove svg {
+  fill: white;
+  stroke: darkred;
+  width: 48px;
+  height: 48px;
+  transition: stroke 0.2s;
+}
+.admin-page .screen .users .admins .administrator .remove:hover svg {
+  stroke: grey;
+}
+.admin-page .screen .users .all-users {
+  width: 100%;
+}
+.admin-page .screen .users .all-users h3 {
+  display: inline-block;
+  width: 100%;
+  height: 25px;
+  line-height: 25px;
+  padding: 0 12px;
+  text-align: left;
+  background-color: rgba(204, 204, 204, 0.4);
+  border-radius: 5px;
+}
+.admin-page .screen .users .all-users .user {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  border-radius: 5px;
+}
+.admin-page .screen .users .all-users .user span {
+  margin: 12px;
+  font-size: 18px;
+}
+.admin-page .screen .users .all-users .user .add {
+  cursor: pointer;
+  width: 48px;
+  height: 48px;
+}
+.admin-page .screen .users .all-users .user .add svg {
+  fill: lightseagreen;
+  width: 48px;
+  height: 48px;
+  transform: rotate(45deg);
+  transition: fill 0.2s;
+}
+.admin-page .screen .users .all-users .user .add:hover svg {
+  fill: grey;
+}
+.admin-page .screen .show {
+  opacity: 1;
+  pointer-events: all;
 }/*# sourceMappingURL=main.css.map */

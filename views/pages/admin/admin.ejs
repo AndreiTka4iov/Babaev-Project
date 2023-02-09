@@ -1,0 +1,59 @@
+<div class="admin-page">
+    <div class="menu">
+        <a href="/admin" class="btn users">
+            <svg>
+                <use xlink:href="/main.svg#profile-svg"></use>
+            </svg>
+            <span>
+                Users
+            </span>    
+        </a>
+        <a ></a>
+        <a href="" class="btn add">
+            <svg>
+                <use xlink:href="/main.svg#close-svg"></use>
+            </svg>
+            <span>
+                Add item
+            </span>    
+        </a>
+
+        <a href="" class="btn order">
+            <svg>
+                <use xlink:href="/main.svg#order-svg"></use>
+            </svg>
+            <span>
+                Orders
+            </span>    
+        </a>
+    </div>
+    <div class="screen">
+        <div class="users show">
+            <div class="admins">
+                <h3>Администраторы:</h3>
+                <% 
+                for (let i = 0; i < locals.adminsList.length; i++) {%>
+                <div class="administrator">
+                    <span><%= locals.adminsList[i].login%></span>
+                    <a href="/admin/addRem?type=remove&id=<%= locals.adminsList[i].id%>" class="remove">
+                        <svg>
+                            <use xlink:href="/main.svg#del-svg"></use>
+                        </svg>
+                    </a>
+                </div>
+                <%}%>
+            </div>
+            <div class="all-users">
+                <h3>Пользователи:</h3>
+                <div class="user">
+                    <span>User</span>
+                    <div class="add">
+                        <svg>
+                            <use xlink:href="/main.svg#close-svg"></use>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

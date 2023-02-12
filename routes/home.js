@@ -18,8 +18,12 @@ async function db_all(query){
     });
 }
 
-router.get('/', async (req, res) => {  
-    res.render('index', {title: 'Market || Home', page: 'Home'})
+router.get('/', async (req, res) => {
+    const sqlReq = "SELECT * FROM items"
+    const resSql = await db_all(sqlReq)  
+    res.render('index', {title: 'Market || Home', page: 'Home', items: resSql})
 })
+
+
 
 module.exports = router

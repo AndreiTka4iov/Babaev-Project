@@ -9,7 +9,7 @@
             </span>    
         </a>
         <a ></a>
-        <a href="" class="btn add">
+        <a href="/admin/item" class="btn add">
             <svg>
                 <use xlink:href="/main.svg#close-svg"></use>
             </svg>
@@ -28,11 +28,11 @@
         </a>
     </div>
     <div class="screen">
-        <div class="users show">
+        <%if(locals.page == 'admin'){%>
+        <div class="users">
             <div class="admins">
                 <h3>Администраторы:</h3>
-                <% 
-                for (let i = 0; i < locals.adminsList.length; i++) {%>
+                <% for (let i = 0; i < locals.adminsList.length; i++) {%>
                 <div class="administrator">
                     <span><%= locals.adminsList[i].login%></span>
                     <a href="/admin/addRem?type=remove&id=<%= locals.adminsList[i].id%>" class="remove">
@@ -45,15 +45,75 @@
             </div>
             <div class="all-users">
                 <h3>Пользователи:</h3>
+                <% if (locals.usersList.length == 0){%>
+                    <div class="clear">
+                        <svg>
+                            <use xlink:href="/main.svg#list-svg"></use>
+                        </svg>
+                        <h1>The list is empty</h1>
+                    </div>
+                <%} else {for (let i = 0; i < locals.usersList.length; i++) {%>
                 <div class="user">
-                    <span>User</span>
-                    <div class="add">
+                    <span><%= locals.usersList[i].login%></span>
+                    <a href="/admin/addRem?type=add&id=<%= locals.usersList[i].id%>" class="add">
                         <svg>
                             <use xlink:href="/main.svg#close-svg"></use>
                         </svg>
                     </div>
                 </div>
+                <%}}%>
             </div>
         </div>
+        <%}else if(locals.page == 'addItem'){%>
+            <form class="add-item" action="/admin/create" method="POST" enctype="multipart/form-data">
+                <input accept="image/*" name="imgUpload" required class="changePhoto" type="file" style="display:none" onchange="changeImg(this)">
+                <div class="flex-add">
+                    <div class="photo" onclick="changePhoto()">
+                        <img src="/images/items/1.jpg" alt="" class="imgAdded">
+                        <svg>
+                            <use xlink:href="/main.svg#photo-svg"></use>
+                        </svg>
+                    </div>
+                    <div class="descr">
+                        <h3>Title:</h3>
+                        <input type="text" name="title" placeholder="Enter title..." required>
+                        <h3>Description:</h3>
+                        <textarea type="text" name="descr" placeholder="Enter description..." required></textarea>
+                        <h3>Type:</h3>
+                        <select name="type" required>
+                            <option selected disabled>Select type...</option>
+                            <option value="1">Ароматы для дома</option>
+                            <option value="2">Женская парфимерия</option>
+                            <option value="3">UNISEX</option>
+                            <option value="4">Селективная парфимерия</option>
+                        </select>
+                        <h3>Price:</h3>
+                        <input type="text" class="price" name="price" placeholder="Price..." required>
+                    </div>
+                </div>
+                <button>Create</button>
+            </form>
+        <%}%>
     </div>
 </div>
+
+<script>
+    function changeImg(input){
+        if (input.files && input.files[0]) {
+            let reader = new FileReader()
+            reader.onload = function (e) {
+                let res = e.target.result
+                const img = document.querySelector(".imgAdded")
+                img.src = res
+            };
+            reader.readAsDataURL(input.files[0]);
+            document.querySelector('.photo')?.classList.add('change')
+        }
+    }
+
+    function changePhoto(){
+        document.querySelector('.changePhoto').click()
+    }
+
+    
+</script>

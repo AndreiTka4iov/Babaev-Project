@@ -1141,8 +1141,6 @@ footer{
         width: calc(100% - 200px);
         
         .users{
-            opacity: 0;
-            pointer-events: none;
             transition: .4s;
             width: 100%;
 
@@ -1242,9 +1240,137 @@ footer{
             }
         }
 
-        .show{
-            opacity: 1;
-            pointer-events: all;
+        .clear{
+           width: 200px;
+           height: 200px;
+           margin: 20px auto;
+           
+            svg{
+                width: 150px;
+                height: 150px;
+                fill: grey;
+                margin: auto;
+            }
+
+            h1{
+                display: inline-block;
+                width: 200px;
+                height: 50px;
+                color: grey;
+                font-size: 22px;
+            }
+        }
+
+        .add-item{
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            min-height: calc(100vh - 144px);
+            position: relative;
+
+            .flex-add{
+                width: 100%;
+                display: flex;
+
+                .photo{
+                    display: flex;
+                    align-items: center;
+                    width: 300px;
+                    height: 300px;
+                    overflow: hidden;
+                    border-radius: 5px;
+                    box-shadow: 0 0 5px grey;
+                    cursor: pointer;
+                    transition: .2s;
+
+                    &:hover{
+                        background-color: $hoverRGBA;
+                    }
+
+                    img{
+                        width: 300px;
+                        height: 300px;
+                        display: none;
+                    }
+
+                    svg{
+                        fill: $secondcolor;
+                        width: 150px;
+                        height: 150px;
+                        margin: auto;
+                    }
+
+                    &.change{
+                        img{
+                            display: block;
+                        }
+
+                        svg{
+                            display: none;
+                        }
+                    }
+                }
+
+                .descr{
+                    text-align: left;
+                    width: calc(100% - 300px);
+                    padding: 12px;
+
+                    input{
+                        width: 100%;
+                        height: 30px;
+                        border: 1px solid black;
+                        border-radius: 10px;
+                        padding: 0 6px;
+                        margin: 6px 0 12px 0;
+
+                        &::placeholder{
+                            color: grey;
+                        }
+
+                        &.price{
+                            width: 150px;
+                        }
+                    }
+
+                    textarea{
+                        width: 100%;
+                        height: 30px;
+                        border: 1px solid black;
+                        border-radius: 10px;
+                        padding: 2px 6px;
+                        margin: 6px 0 12px 0;
+
+                        &::placeholder{
+                            color: grey;
+                        }
+                    }
+
+                    select{
+                        width: 100%;
+                        height: 30px;
+                        border: 1px solid black;
+                        border-radius: 10px;
+                        padding: 0 6px;
+                        margin: 6px 0 12px 0;
+                    }
+                }
+            }
+
+            button{
+                width: 100%;
+                height: 50px;
+                background-color: $secondcolor;
+                border-radius: 5px;
+                margin-top: auto;
+                color: white;
+                font-size: 22px;
+                transition: .2s;
+
+                &:hover{
+                    background-color: $secondcolorhover;
+                }
+            }
         }
     }
 }

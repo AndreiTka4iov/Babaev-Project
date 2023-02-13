@@ -29,12 +29,15 @@
                 Home
             </a>
             <div class="search">
-                <input type="text" placeholder="Search....">
+                <input type="text" placeholder="Search...." oninput="headerSearch(this)" onfocusout="headerLeave(this)">
                 <button>
                     <svg>
                         <use xlink:href="/main.svg#search-svg"></use>
                     </svg>
                 </button>
+                <div class="result-search">
+                    
+                </div>
             </div>
             <span class="burger" onclick="openBurger()">
                 <svg>
@@ -49,12 +52,12 @@
                 </div>
             <%}else{%>
                 <div class="user-block">
-                    <div class="profile-btn">
+                    <a href="/profile/favorite" class="profile-btn">
                         <svg>
                             <use xlink:href="/main.svg#love-svg"></use>
                         </svg>
-                    </div>
-                    <div class="profile-btn">
+                    </a>
+                    <div class="profile-btn" onclick="openDrop()">
                         <svg>
                             <use xlink:href="/main.svg#profile-svg"></use>
                         </svg>
@@ -69,10 +72,10 @@
             <div class="scroll-block">
                 <h5>Select type:</h5>
                 <div class="sorting-menu">
-                    <a href="?">Селективная парфимерия</a>
-                    <a href="?">Женская парфимерия</a>
-                    <a href="?">Ароматы для дома</a>
-                    <a href="?">UNISEX</a>
+                    <a href="?by=4">Селективная парфимерия</a>
+                    <a href="?by=2">Женская парфимерия</a>
+                    <a href="?by=1">Ароматы для дома</a>
+                    <a href="?by=3">UNISEX</a>
                 </div>
                 <h5>Profile:</h5>
                 <%if (locals.token == 0){%>
@@ -80,7 +83,7 @@
                     <span class="auth" onclick="clickOnClose(this), openAuth('signUp')">Sign up</span>
                 <%}else{%>
                     <div class="user-block">
-                        <a href="">
+                        <a href="/profile">
                             <svg>
                                 <use xlink:href="/main.svg#profile-svg"></use>
                             </svg>
@@ -92,11 +95,17 @@
                             </svg>
                             <span>Your cart</span>
                         </a>
-                        <a href="">
+                        <a href="/profile/favorite">
                             <svg>
                                 <use xlink:href="/main.svg#love-svg"></use>
                             </svg>
                             <span>Your favorite</span>
+                        </a>
+                        <a href="/auth/sign-out" class="sigh-out">
+                            <svg>
+                                <use xlink:href="/main.svg#signout-svg"></use>
+                            </svg>
+                            <span>Sign out</span>
                         </a>
                     </div> 
                 <%}%>
@@ -107,5 +116,34 @@
                 </svg>
                 <span>Close</span>
             </div>
+        </div>
+    </div>
+
+    <div class="bluray drop" onclick="closeDrop(this)">
+        <div class="drop-down">
+            <a href="/profile">
+                <svg>
+                    <use xlink:href="/main.svg#profile-svg"></use>
+                </svg>
+                <span>Your profile</span>
+            </a>
+            <a href="/profile">
+                <svg>
+                    <use xlink:href="/main.svg#cart-svg"></use>
+                </svg>
+                <span>Your cart</span>
+            </a>
+            <a href="/profile">
+                <svg>
+                    <use xlink:href="/main.svg#order-svg"></use>
+                </svg>
+                <span>Your order</span>
+            </a>
+            <a href="/auth/sign-out" class="sign-out">
+                <svg>
+                    <use xlink:href="/main.svg#signout-svg"></use>
+                </svg>
+                <span>Sign out</span>
+            </a>
         </div>
     </div>

@@ -8,9 +8,8 @@
                         <use xlink:href="/main.svg#love-svg"></use>
                     </svg>
                 </span>
-                
+                <div class="price"><%=locals.item.price %> ₽</div>
                 <div class="in-cart" id="<%=locals.item.id %>"> В корзину</div>
-                <div class="price"><%=locals.item.price %></div>
             </div>
         </div>
         <div class="text-block">
@@ -26,10 +25,12 @@
             </svg>
         </span>
         <div class="items">
-            <a href="/item" class="href-item">
-                <img src="/images/items/1.jpg" alt="">
-                <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur neque amet laborum aspernatur officia officiis minus atque dolorem molestiae quibusdam ipsum, dolorum porro ratione beatae sed! Labore quidem dolores voluptas!</span>
-            </a>       
+            <% for (let i = 0; i < locals.rec.length; i++) {%>
+            <a href="/item?id=<%=locals.rec[i].id %>&type=<%=locals.rec[i].type %>" class="href-item">
+                <img src="data:image/png;base64,<%=locals.rec[i].img %>">
+                <span><%=locals.rec[i].title %></span>
+            </a>  
+            <%}%>     
         </div>
         <span class="arrow next" onclick="scrollRec(this)">
             <svg>

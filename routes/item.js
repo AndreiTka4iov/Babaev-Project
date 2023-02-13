@@ -23,12 +23,14 @@ router.get('/', async (req, res) => {
         const idItem = urlRequest.query.id
         const sqlReq = "SELECT * FROM items WHERE id="+ idItem +""
         const resSql = await db_all(sqlReq)
-        const sqlReq2 = "UPDATE items SET view=view+1 WHERE id="+ idItem +""
-        await db_all(sqlReq2)
+        const sqlReq2 = "SELECT * FROM items WHERE type = "+ urlRequest.query.type +" ORDER BY view DESC"
+        const resSql2 = await db_all(sqlReq2)
+        const sqlReq3 = "UPDATE items SET view=view+1 WHERE id="+ idItem +""
+        await db_all(sqlReq3)
         if (resSql.length == 0){
             res.render('index', { title: 'Error', page: 'Error'})
         }else{
-            res.render('index', {title: 'Market || Item', page: 'Item', item: resSql[0]})
+            res.render('index', {title: 'Market || Item', page: 'Item', item: resSql[0], rec: resSql2})
         }
     } catch{
         res.render('index', { title: 'Error', page: 'Error'})

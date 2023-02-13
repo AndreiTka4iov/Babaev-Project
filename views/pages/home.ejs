@@ -1,24 +1,25 @@
 <div class="home-page">
     <div class="sorting-menu">
-        <a href="?">Ароматы для дома</a>
+        <a href="?by=1">Ароматы для дома</a>
         <hr width="1">
-        <a href="?">Женская парфимерия</a>
+        <a href="?by=2">Женская парфимерия</a>
         <hr width="1">
-        <a href="?">UNISEX</a>
+        <a href="?by=3">UNISEX</a>
         <hr width="1">
-        <a href="?">Селективная парфимерия</a>
+        <a href="?by=4">Селективная парфимерия</a>
     </div>
     <div class="item-block">
         <% for (let i = 0; i < locals.items.length; i++) {%>
         <div class="item">
             <img src="data:image/png;base64,<%=locals.items[i].img %>">
-            <a href="/item?id=<%=locals.items[i].id%>"><%=locals.items[i].title%></a>
+            <a href="/item?id=<%=locals.items[i].id%>&type=<%=locals.items[i].type%>"><%=locals.items[i].title%></a>
             <div class="flex-btn">
                 <span id="<%=locals.items[i].id%>">
                     <svg>
                         <use xlink:href="/main.svg#love-svg"></use>
                     </svg>
                 </span>
+                <h3><%=locals.items[i].price%> ₽</h3>
                 <div class="cart" id="<%=locals.items[i].id%>">В корзину</div>
             </div>
         </div>

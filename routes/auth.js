@@ -1,7 +1,6 @@
 const express = require('express')
 const router = express.Router()
 const cookieParser = require('cookie-parser')
-const Cookies = require('cookies')
 const sqlite3 = require('sqlite3').verbose()
 const md5 = require('md5')
 const db2 = new sqlite3.Database('./DB/main.db')
@@ -54,10 +53,12 @@ router.post('/sign-up', async (req, res) =>{
     const md5Pass = md5(pass)
     const sqlReq = "INSERT INTO `users` (login, pass, token) VALUES  ('"+ login +"', '"+ md5Pass +"', '"+ token +"')"
     const sqlReq2 = "SELECT * FROM users WHERE `token`='"+ token +"'"
+    const sqlReq3 = "INSERT INTO info_user (id_user, login) SELECT id, login FROM users WHERE login = '"+ login +"'"
     
     try{
         const reqSql = await db_all(sqlReq)
         const reqSql2 = await db_all(sqlReq2)
+        await db_all(sqlReq3)
         if (reqSql2.length  == 0 || reqSql.length > 1){ 
             return res.end(JSON.stringify(false)) 
         } else { 
@@ -88,5 +89,19 @@ router.post('/checkLogin', async (req, res) =>{
     }
 })
 
+router.get('/sign-out', async (req, res) =>{  
+    try{
+        res.clearCookie('id')
+        res.clearCookie('token')
+        res.clearCookie('login')
+        return res.redirect('/')
+    }catch{
+        res.render('index', { title: 'Error', page: 'Error'})
+    }
+})
+
+router.get('/:any', (req, res) => {
+    res.render('index', { title: 'Error', page: 'Error'})
+})
   
 module.exports = router

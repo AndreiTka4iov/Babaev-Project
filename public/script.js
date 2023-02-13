@@ -196,3 +196,48 @@ function scrollRec(row){
     }
     
 }
+
+function headerSearch(inp){
+    inp.closest('.search')?.querySelector('.result-search').classList.add('show')
+    const inputValue = inp.value
+    const body = '&input=' + inputValue
+
+    xhr.onreadystatechange = function () {
+        if(this.readyState == 4 && this.status == 200){
+            resultSearch(this.responseText)
+        }
+    }
+    xhr.open("GET", '/search?'+body, true)
+    xhr.send()
+}
+
+function resultSearch(data) {
+    const redultReq = JSON.parse(data)
+    const parentBlock = document.querySelector('.result-search')
+
+    while (parentBlock.firstChild) {
+        parentBlock.removeChild(parentBlock.lastChild);
+    }
+    
+    for (var i=0; i<redultReq.length; i++){
+        let a = document.createElement('a')
+        a.innerHTML = redultReq[i].title
+        a.href = '/item?id='+ redultReq[i].id +'&type='+ redultReq[i].type
+        parentBlock.appendChild(a)
+    }
+}
+
+function headerLeave(inp){
+    const parentBlock = document.querySelector('.search')
+    setTimeout(() => 
+    inp.closest('.search')?.querySelector('.result-search').classList.remove('show')
+    , 100);         
+}
+
+function openDrop(){
+    document.querySelector('.bluray.drop').classList.add('show')
+}
+
+function closeDrop(bluray){
+    bluray.classList.remove('show') 
+}

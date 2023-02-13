@@ -54,6 +54,9 @@ app.use('/auth', authRouter)
 const adminRouter = require('./routes/admin')
 app.use('/admin', adminRouter)
 
+const profileRouter = require('./routes/profile')
+app.use('/profile', profileRouter)
+
 // 404
 
 app.get('/:any', (req, res) => {

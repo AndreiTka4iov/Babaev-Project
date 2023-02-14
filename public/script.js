@@ -271,3 +271,53 @@ function inFavorite(item){
         }
     }    
 }
+
+function inCart(item){
+    var body = 'idItem=' + item.id
+    
+    if(item.className == 'cart active'){
+        xhr.open("POST", '/profile/cart/remove', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send(body);
+
+        xhr.onreadystatechange = function () {
+            if(this.readyState == 4 && this.status == 200 && this.responseText == 'true'){
+                item.classList.remove('active')
+            } else if(this.readyState == 4 && this.status == 200 && this.responseText == '"auth"'){
+                openAuth('signIn')
+            }
+        }
+    } else{
+        xhr.open("POST", '/profile/cart/add', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send(body);
+
+        xhr.onreadystatechange = function () {
+            if(this.readyState == 4 && this.status == 200 && this.responseText == 'true'){
+                item.classList.add('active')
+            } else if(this.readyState == 4 && this.status == 200 && this.responseText == '"auth"'){
+                openAuth('signIn')
+            }
+        }
+    }    
+}
+
+function removeCart(item){
+    var body = 'idItem=' + item.id
+    
+    if(item.className == 'cart active'){
+        xhr.open("POST", '/profile/cart/removeItem', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send(body);
+
+        xhr.onreadystatechange = function () {
+            if(this.readyState == 4 && this.status == 200 && this.responseText == 'true'){
+                const itemRemove = item.closest('.item')
+                const page = item.closest('.items-block')
+                page.removeChild(itemRemove)
+            } else if(this.readyState == 4 && this.status == 200 && this.responseText == '"auth"'){
+                openAuth('signIn')
+            }
+        }
+    } 
+}

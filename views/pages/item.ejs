@@ -3,15 +3,17 @@
         <div class="img-block">
             <img src="data:image/png;base64,<%=locals.item.img %>">
             <div class="btn">
-                <%var activeFavorite = ""
-                    if (locals.favorite != undefined) activeFavorite = "active"%>
+                <%  var activeFavorite = ""
+                    var activeCart = ""
+                    if (locals.favorite != undefined) activeFavorite = "active"
+                    if (locals.cart != undefined) activeCart = "active"%>
                 <span id="<%=locals.item.id %>" class="<%=activeFavorite%>" onclick="inFavorite(this)">
                     <svg>
                         <use xlink:href="/main.svg#love-svg"></use>
                     </svg>
                 </span>
                 <div class="price"><%=locals.item.price %> ₽</div>
-                <div class="in-cart" id="<%=locals.item.id %>"> В корзину</div>
+                <div class="cart <%=activeCart%>" id="<%=locals.item.id %>" onclick="inCart(this)"> В корзину</div>
             </div>
         </div>
         <div class="text-block">

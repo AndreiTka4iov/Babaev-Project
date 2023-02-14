@@ -837,6 +837,16 @@ footer .flex-footer a:hover svg {
   color: white;
   border-radius: 5px;
   cursor: pointer;
+  transition: 0.2s;
+}
+.home-page .item-block .item .flex-btn .cart:hover {
+  background-color: rgba(32, 178, 170, 0.8);
+}
+.home-page .item-block .item .flex-btn .cart.active {
+  background-color: grey;
+}
+.home-page .item-block .item .flex-btn .cart.active:hover {
+  background-color: light grey;
 }
 
 @media screen and (max-width: 1000px) {
@@ -911,7 +921,7 @@ footer .flex-footer a:hover svg {
   font-size: 20px;
   font-weight: bold;
 }
-.item-page .flex-block .img-block .btn .in-cart {
+.item-page .flex-block .img-block .btn .cart {
   width: calc(100% - 152px);
   height: 40px;
   background-color: lightseagreen;
@@ -922,8 +932,14 @@ footer .flex-footer a:hover svg {
   cursor: pointer;
   transition: 0.2s;
 }
-.item-page .flex-block .img-block .btn .in-cart:hover {
+.item-page .flex-block .img-block .btn .cart:hover {
   background-color: rgba(32, 178, 170, 0.8);
+}
+.item-page .flex-block .img-block .btn .cart.active {
+  background-color: grey;
+}
+.item-page .flex-block .img-block .btn .cart.active:hover {
+  background-color: darkgrey;
 }
 .item-page .flex-block .text-block {
   width: calc(100% - 420px);
@@ -1666,16 +1682,23 @@ footer .flex-footer a:hover svg {
   font-weight: bold;
   color: black;
 }
-.favorite-screen .items-block .item .cart-block .in-cart {
+.favorite-screen .items-block .item .cart-block .cart {
   cursor: pointer;
 }
-.favorite-screen .items-block .item .cart-block .in-cart svg {
+.favorite-screen .items-block .item .cart-block .cart svg {
+  fill: black;
   width: 50px;
   height: 50px;
   transition: fill 0.2s;
 }
-.favorite-screen .items-block .item .cart-block .in-cart:hover svg {
+.favorite-screen .items-block .item .cart-block .cart:hover svg {
   fill: lightseagreen;
+}
+.favorite-screen .items-block .item .cart-block .cart.active svg {
+  fill: grey;
+}
+.favorite-screen .items-block .item .cart-block .cart.active:hover svg {
+  fill: darkgrey;
 }
 .favorite-screen .btn-block {
   display: flex;
@@ -1760,6 +1783,198 @@ footer .flex-footer a:hover svg {
     display: none;
   }
   .favorite-screen .items-block .item .cart-block {
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    height: 50px;
+  }
+}
+.cart-page {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  min-height: calc(100vh - 120px);
+  margin: auto;
+  padding: 12px;
+}
+.cart-page h2 {
+  display: inline-block;
+  width: 100%;
+  text-align: left;
+  background-color: rgba(204, 204, 204, 0.4);
+  padding: 6px;
+  border-radius: 5px;
+}
+.cart-page .items-block {
+  width: 100%;
+}
+.cart-page .items-block .list-clear svg {
+  width: 150px;
+  height: 150px;
+  fill: grey;
+  margin: 24px;
+}
+.cart-page .items-block .list-clear h3 {
+  font-size: 30px;
+  color: grey;
+}
+.cart-page .items-block .item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 150px;
+  padding: 6px;
+  margin: 6px 0;
+  border-radius: 5px;
+  transition: 0.2s;
+  overflow: hidden;
+}
+.cart-page .items-block .item:hover {
+  box-shadow: 0 0 10px grey;
+}
+.cart-page .items-block .item .img-block {
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  border-radius: 5px;
+  border: 1px solid grey;
+  margin: auto 0;
+}
+.cart-page .items-block .item .img-block img {
+  width: 100px;
+  height: 100px;
+  border-radius: 5px;
+}
+.cart-page .items-block .item .info-block {
+  display: block;
+  width: calc(100% - 224px);
+  max-height: 138px;
+  overflow: hidden;
+  margin: 0 12px;
+}
+.cart-page .items-block .item .info-block h4 {
+  color: black;
+}
+.cart-page .items-block .item .info-block span {
+  color: grey;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.cart-page .items-block .item .cart-block {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100px;
+  height: 150px;
+}
+.cart-page .items-block .item .cart-block span {
+  font-weight: bold;
+  color: black;
+}
+.cart-page .items-block .item .cart-block .cart {
+  cursor: pointer;
+}
+.cart-page .items-block .item .cart-block .cart svg {
+  fill: black;
+  width: 50px;
+  height: 50px;
+  transition: fill 0.2s;
+}
+.cart-page .items-block .item .cart-block .cart:hover svg {
+  fill: lightseagreen;
+}
+.cart-page .items-block .item .cart-block .cart.active svg {
+  fill: grey;
+}
+.cart-page .items-block .item .cart-block .cart.active:hover svg {
+  fill: darkgrey;
+}
+.cart-page .btn-block {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  height: 50px;
+  margin-top: auto;
+}
+.cart-page .btn-block .btn {
+  display: block;
+  width: 40%;
+  height: 36px;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  line-height: 36px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.cart-page .btn-block .btn.accept {
+  background-color: lightseagreen;
+}
+.cart-page .btn-block .btn.accept:hover {
+  background-color: rgba(32, 178, 170, 0.8);
+}
+.cart-page .btn-block .btn.remove {
+  background-color: darkred;
+}
+.cart-page .btn-block .btn.remove:hover {
+  background-color: red;
+}
+
+@media screen and (max-width: 1000px) {
+  .cart-page {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 500px) {
+  .cart-page .items-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  .cart-page .items-block .item {
+    flex-direction: column;
+    width: 300px;
+    height: 350px;
+    border: 1px solid grey;
+    border-radius: 0;
+  }
+  .cart-page .items-block .item:hover {
+    box-shadow: 0 0 0 0;
+  }
+  .cart-page .items-block .item .img-block {
+    width: 250px;
+    height: 250px;
+    margin: 0;
+    border: 0px;
+  }
+  .cart-page .items-block .item .img-block img {
+    width: 250px;
+    height: 250px;
+  }
+  .cart-page .items-block .item .info-block {
+    display: block;
+    width: 100%;
+    height: 50px;
+  }
+  .cart-page .items-block .item .info-block h4 {
+    color: black;
+    font-size: 20px;
+    line-height: 50px;
+    font-weight: inherit;
+    transition: color 0.2s;
+  }
+  .cart-page .items-block .item .info-block:hover h4 {
+    color: lightseagreen;
+  }
+  .cart-page .items-block .item .info-block span {
+    display: none;
+  }
+  .cart-page .items-block .item .cart-block {
     flex-direction: row;
     justify-content: space-around;
     width: 100%;

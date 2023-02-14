@@ -29,8 +29,10 @@ router.get('/', async (req, res) => {
         await db_all(sqlReq3)
         if(resSql.length != 0 && req.signedCookies.id != undefined){
             const sqlReq4 = "SELECT DISTINCT * FROM favorite WHERE id_user = "+ req.signedCookies.id +" AND id_item = "+ resSql[0].id +""
-            const resSql4 = await db_all(sqlReq4) 
-            res.render('index', {title: 'Market || Item', page: 'Item', item: resSql[0], rec: resSql2, favorite: resSql4[0]})
+            const sqlReq5 = "SELECT DISTINCT * FROM cart WHERE id_user = "+ req.signedCookies.id +" AND id_item = "+ resSql[0].id +""
+            const resSql4 = await db_all(sqlReq4)
+            const resSql5 = await db_all(sqlReq5)
+            res.render('index', {title: 'Market || Item', page: 'Item', item: resSql[0], rec: resSql2, favorite: resSql4[0], cart: resSql5[0]})
         }else if (resSql.length == 0){
             res.render('index', { title: 'Error', page: 'Error'})
         }else{

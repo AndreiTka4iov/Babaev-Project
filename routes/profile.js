@@ -17,6 +17,42 @@ async function db_all(query){
     });
 }
 
+router.get('/', async (req, res) => {  
+    const checkAuth = req.signedCookies.id
+    if (checkAuth != undefined){
+        const sqlReq = "SELECT * FROM info_user WHERE id_user = "+ checkAuth +""
+        const resSql = await db_all(sqlReq)
+        res.render('index', { title: 'Profile', page: 'Profile', info: resSql[0]})
+    } else{
+        res.render('index', { title: 'Error', page: 'Error'})
+    }
+})
+
+router.post('/edit', async (req, res) => { 
+    try{
+        const {firstname, lastname, address} = req.body
+        const idUser = req.signedCookies.id
+        const reqSql = "UPDATE info_user SET firstname = '"+ firstname +"', lastname = '"+ lastname +"', address = '"+ address +"' WHERE id_user = "+ idUser +""
+        await db_all(reqSql)
+        return res.redirect('/profile')
+    } catch{
+        return res.redirect('/profile')
+    }
+})
+
+router.get('/favorite', async (req, res) => {  
+    const checkAuth = req.signedCookies.id
+    if (checkAuth != undefined){
+        const sqlReq = "SELECT DISTINCT items.id, items.title, items.descr, items.img, items.price, items.type FROM items, favorite WHERE favorite.id_user = "+ checkAuth +" AND items.id = favorite.id_item"
+        const sqlReq2 = "SELECT DISTINCT * FROM cart WHERE id_user = "+ checkAuth +""
+        const resSql = await db_all(sqlReq)
+        const resSql2 = await db_all(sqlReq2)
+        res.render('index', { title: 'Favorite', page: 'Favorite', list: resSql, cart: resSql2})
+    } else{
+        res.render('index', { title: 'Error', page: 'Error'})
+    }
+})
+
 router.post('/favorite/add', async (req, res) => { 
     try{
         const idUser = req.signedCookies.id
@@ -49,48 +85,82 @@ router.post('/favorite/remove', async (req, res) => {
     }
 })
 
-router.get('/', async (req, res) => {  
-    const checkAuth = req.signedCookies.id
-    if (checkAuth != undefined){
-        const sqlReq = "SELECT * FROM info_user WHERE id_user = "+ checkAuth +""
-        const resSql = await db_all(sqlReq)
-        res.render('index', { title: 'Profile', page: 'Profile', info: resSql[0]})
-    } else{
-        res.render('index', { title: 'Error', page: 'Error'})
-    }
-})
-
-router.post('/edit', async (req, res) => { 
-    try{
-        const {firstname, lastname, address} = req.body
-        const idUser = req.signedCookies.id
-        const reqSql = "UPDATE info_user SET firstname = '"+ firstname +"', lastname = '"+ lastname +"', address = '"+ address +"' WHERE id_user = "+ idUser +""
-        await db_all(reqSql)
-        return res.redirect('/profile')
-    } catch{
-        return res.redirect('/profile')
-    }
-    
-    console.log(firstname)
-})
-
-router.get('/favorite', async (req, res) => {  
-    const checkAuth = req.signedCookies.id
-    if (checkAuth != undefined){
-        const sqlReq = "SELECT DISTINCT items.id, items.title, items.descr, items.img, items.price, items.type FROM items, favorite WHERE favorite.id_user = "+ checkAuth +" AND items.id = favorite.id_item"
-        const resSql = await db_all(sqlReq)
-        res.render('index', { title: 'Favorite', page: 'Favorite', list: resSql})
-    } else{
-        res.render('index', { title: 'Error', page: 'Error'})
-    }
-})
-
 router.get('/favorite/removeAll', async (req, res) => {  
     const checkAuth = req.signedCookies.id
     if (checkAuth != undefined){
         const sqlReq = "DELETE FROM favorite WHERE id_user = "+ checkAuth +""
         await db_all(sqlReq)
         return res.redirect('/profile/favorite')
+    } else{
+        res.render('index', { title: 'Error', page: 'Error'})
+    }
+})
+
+router.get('/cart', async (req, res) => {  
+    const checkAuth = req.signedCookies.id
+    if (checkAuth != undefined){
+        const sqlReq = "SELECT DISTINCT items.id, items.title, items.descr, items.img, items.price, items.type FROM items, cart WHERE cart.id_user = "+ checkAuth +" AND items.id = cart.id_item"
+        const resSql = await db_all(sqlReq)
+        res.render('index', { title: 'Cart', page: 'Cart', list: resSql})
+    } else{
+        res.render('index', { title: 'Error', page: 'Error'})
+    }
+})
+
+router.post('/cart/add', async (req, res) => { 
+    try{
+        const idUser = req.signedCookies.id
+        const idItem = req.body.idItem
+        if (idUser != undefined){
+            const sqlReq = "INSERT INTO cart (id_user, id_item) VALUES ("+ idUser +", "+ idItem +")"
+            await db_all(sqlReq)
+            return res.end(JSON.stringify(true)) 
+        } else{
+            return res.end(JSON.stringify('auth')) 
+        }
+    } catch{
+        return res.end(JSON.stringify(false)) 
+    }
+})
+
+router.post('/cart/remove', async (req, res) => { 
+    try{
+        const idUser = req.signedCookies.id
+        const idItem = req.body.idItem
+        if (idUser != undefined){
+            const sqlReq = "DELETE FROM cart WHERE id_user = "+ idUser +" AND id_item = "+ idItem +""
+            await db_all(sqlReq)
+            return res.end(JSON.stringify(true)) 
+        } else{
+            return res.end(JSON.stringify('auth')) 
+        }
+    } catch{
+        return res.end(JSON.stringify(false)) 
+    }
+})
+
+router.post('/cart/removeItem', async (req, res) => { 
+    try{
+        const idUser = req.signedCookies.id
+        const idItem = req.body.idItem
+        if (idUser != undefined){
+            const sqlReq = "DELETE FROM cart WHERE id_user = "+ idUser +" AND id_item = "+ idItem +""
+            await db_all(sqlReq)
+            return res.end(JSON.stringify(true)) 
+        } else{
+            return res.end(JSON.stringify('auth')) 
+        }
+    } catch{
+        return res.end(JSON.stringify(false)) 
+    }
+})
+
+router.get('/cart/removeAll', async (req, res) => {  
+    const checkAuth = req.signedCookies.id
+    if (checkAuth != undefined){
+        const sqlReq = "DELETE FROM cart WHERE id_user = "+ checkAuth +""
+        await db_all(sqlReq)
+        return res.redirect('/profile/cart')
     } else{
         res.render('index', { title: 'Error', page: 'Error'})
     }

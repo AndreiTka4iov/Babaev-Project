@@ -1,5 +1,5 @@
-<div class="favorite-screen">
-    <h2>Your favorite:</h2>
+<div class="cart-page">
+    <h2>Your cart:</h2>
     <div class="items-block">
         <% if (locals.list.length == 0){%>
         <div class="list-clear">
@@ -10,10 +10,7 @@
         </div>
         <%} else{
             for (let i = 0; i < locals.list.length; i++) {
-            var activeCart = ""
-            for (let ii = 0; ii < locals.cart.length; ii++) {
-                if (locals.cart[ii].id_item == locals.list[i].id) {activeCart = "active"}
-            }%>
+            %>
             <div class="item">
                 <div class="img-block">
                     <img src="data:image/png;base64,<%=locals.list[i].img %>">
@@ -24,7 +21,7 @@
                 </a>
                 <div class="cart-block">
                     <span><%=locals.list[i].price %> ₽</span>
-                    <span class="cart <%=activeCart%>" id="<%=locals.list[i].id %>" onclick="inCart(this)">
+                    <span class="cart active" id="<%=locals.list[i].id %>" onclick="removeCart(this)">
                         <svg>
                             <use xlink:href="/main.svg#cart-svg"></use>
                         </svg>
@@ -34,7 +31,7 @@
         <%}}%>
     </div>
     <div class="btn-block">
-        <a href="" class="btn accept">Add everything to cart</a>
-        <a href="/profile/favorite/removeAll" class="btn remove">Clear the list</a>
+        <a href="" class="btn accept">Make an order</a>
+        <a href="/profile/cart/removeAll" class="btn remove">Clear the list</a>
     </div>
 </div>

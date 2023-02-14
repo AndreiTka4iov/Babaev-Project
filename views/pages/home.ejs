@@ -11,9 +11,15 @@
     <div class="item-block">
         <% for (let i = 0; i < locals.items.length; i++) {
             let favoriteVar = ""
+            let cartItem = ""
             for (let ii = 0; ii < locals.favorite.length; ii++){
                 if (locals.favorite[ii].id_item == locals.items[i].id){
                     favoriteVar = "active"
+                }
+            }
+            for (let iii = 0; iii < locals.cart.length; iii++){
+                if (locals.cart[iii].id_item == locals.items[i].id){
+                    cartItem = "active"
                 }
             }
             
@@ -28,7 +34,7 @@
                     </svg>
                 </span>
                 <h3><%=locals.items[i].price%> ₽</h3>
-                <div class="cart" id="<%=locals.items[i].id%>">В корзину</div>
+                <div class="cart <%=cartItem%>" id="<%=locals.items[i].id%>" onclick="inCart(this)">В корзину</div>
             </div>
         </div>
         <%}%>

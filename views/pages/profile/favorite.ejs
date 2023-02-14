@@ -1,20 +1,36 @@
 <div class="favorite-screen">
     <h2>Your favorite:</h2>
     <div class="items-block">
+        <% if (locals.list.length == 0){%>
         <div class="list-clear">
             <svg>
                 <use xlink:href="/main.svg#list-svg"></use>
             </svg>
             <h3>The list is empty</h3>
         </div>
-        <div class="item">
-            <div class="img-block">
-                <img src="" alt="">
+        <%} else{
+            for (let i = 0; i < locals.list.length; i++) {%>
+            <div class="item">
+                <div class="img-block">
+                    <img src="data:image/png;base64,<%=locals.list[i].img %>">
+                </div>
+                <a href="/item?id=<%=locals.list[i].id %>&type=<%=locals.list[i].type %>" class="info-block">
+                    <h4><%=locals.list[i].title %></h4>
+                    <span><%=locals.list[i].descr %></span>
+                </a>
+                <div class="cart-block">
+                    <span><%=locals.list[i].price %> ₽</span>
+                    <span class="in-cart">
+                        <svg>
+                            <use xlink:href="/main.svg#cart-svg"></use>
+                        </svg>
+                    </span>
+                </div>
             </div>
-        </div>
+        <%}}%>
     </div>
     <div class="btn-block">
         <a href="" class="btn accept">Add everything to cart</a>
-        <a href="" class="btn remove">Clear the list</a>
+        <a href="/profile/favorite/removeAll" class="btn remove">Clear the list</a>
     </div>
 </div>

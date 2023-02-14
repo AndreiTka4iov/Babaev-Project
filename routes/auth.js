@@ -48,17 +48,17 @@ router.post('/sign-in', async (req, res) =>{
 })
 
 router.post('/sign-up', async (req, res) =>{
-    const token = makeToken(20)
-    const {login, pass} = req.body
-    const md5Pass = md5(pass)
-    const sqlReq = "INSERT INTO `users` (login, pass, token) VALUES  ('"+ login +"', '"+ md5Pass +"', '"+ token +"')"
-    const sqlReq2 = "SELECT * FROM users WHERE `token`='"+ token +"'"
-    const sqlReq3 = "INSERT INTO info_user (id_user, login) SELECT id, login FROM users WHERE login = '"+ login +"'"
-    
     try{
+        const token = makeToken(20)
+        const {login, pass} = req.body
+        const md5Pass = md5(pass)
+        const sqlReq = "INSERT INTO `users` (login, pass, token) VALUES  ('"+ login +"', '"+ md5Pass +"', '"+ token +"')"
+        const sqlReq2 = "SELECT * FROM users WHERE `token`='"+ token +"'"
+        const sqlReq3 = "INSERT INTO info_user (id_user, login) SELECT id, login FROM users WHERE login = '"+ login +"'"
         const reqSql = await db_all(sqlReq)
         const reqSql2 = await db_all(sqlReq2)
         await db_all(sqlReq3)
+
         if (reqSql2.length  == 0 || reqSql.length > 1){ 
             return res.end(JSON.stringify(false)) 
         } else { 

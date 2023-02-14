@@ -17,6 +17,38 @@ async function db_all(query){
     });
 }
 
+router.post('/favorite/add', async (req, res) => { 
+    try{
+        const idUser = req.signedCookies.id
+        const idItem = req.body.idItem
+        if (idUser != undefined){
+            const sqlReq = "INSERT INTO favorite (id_user, id_item) VALUES ("+ idUser +", "+ idItem +")"
+            await db_all(sqlReq)
+            return res.end(JSON.stringify(true)) 
+        } else{
+            return res.end(JSON.stringify('auth')) 
+        }
+    } catch{
+        return res.end(JSON.stringify(false)) 
+    }
+})
+
+router.post('/favorite/remove', async (req, res) => { 
+    try{
+        const idUser = req.signedCookies.id
+        const idItem = req.body.idItem
+        if (idUser != undefined){
+            const sqlReq = "DELETE FROM favorite WHERE id_user = "+ idUser +" AND id_item = "+ idItem +""
+            await db_all(sqlReq)
+            return res.end(JSON.stringify(true)) 
+        } else{
+            return res.end(JSON.stringify('auth')) 
+        }
+    } catch{
+        return res.end(JSON.stringify(false)) 
+    }
+})
+
 router.get('/', async (req, res) => {  
     const checkAuth = req.signedCookies.id
     if (checkAuth != undefined){
@@ -45,7 +77,20 @@ router.post('/edit', async (req, res) => {
 router.get('/favorite', async (req, res) => {  
     const checkAuth = req.signedCookies.id
     if (checkAuth != undefined){
-        res.render('index', { title: 'Favorite', page: 'Favorite'})
+        const sqlReq = "SELECT DISTINCT items.id, items.title, items.descr, items.img, items.price, items.type FROM items, favorite WHERE favorite.id_user = "+ checkAuth +" AND items.id = favorite.id_item"
+        const resSql = await db_all(sqlReq)
+        res.render('index', { title: 'Favorite', page: 'Favorite', list: resSql})
+    } else{
+        res.render('index', { title: 'Error', page: 'Error'})
+    }
+})
+
+router.get('/favorite/removeAll', async (req, res) => {  
+    const checkAuth = req.signedCookies.id
+    if (checkAuth != undefined){
+        const sqlReq = "DELETE FROM favorite WHERE id_user = "+ checkAuth +""
+        await db_all(sqlReq)
+        return res.redirect('/profile/favorite')
     } else{
         res.render('index', { title: 'Error', page: 'Error'})
     }

@@ -241,3 +241,33 @@ function openDrop(){
 function closeDrop(bluray){
     bluray.classList.remove('show') 
 }
+
+function inFavorite(item){
+    var body = 'idItem=' + item.id
+    
+    if(item.className == 'active'){
+        xhr.open("POST", '/profile/favorite/remove', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send(body);
+
+        xhr.onreadystatechange = function () {
+            if(this.readyState == 4 && this.status == 200 && this.responseText == 'true'){
+                item.classList.remove('active')
+            } else if(this.readyState == 4 && this.status == 200 && this.responseText == '"auth"'){
+                openAuth('signIn')
+            }
+        }
+    } else{
+        xhr.open("POST", '/profile/favorite/add', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send(body);
+
+        xhr.onreadystatechange = function () {
+            if(this.readyState == 4 && this.status == 200 && this.responseText == 'true'){
+                item.classList.add('active')
+            } else if(this.readyState == 4 && this.status == 200 && this.responseText == '"auth"'){
+                openAuth('signIn')
+            }
+        }
+    }    
+}

@@ -21,14 +21,27 @@ router.get('/', async (req, res) => {
     const urlRequest = url.parse(req.url, true)
     const idItem = urlRequest.query.by
 
-    if (idItem == undefined){
-        var sqlReq = "SELECT * FROM items"
+    if(idItem == undefined && req.signedCookies.id != undefined){
+        const sqlReq = "SELECT * FROM items"
+        const sqlReq2 = "SELECT DISTINCT * FROM favorite WHERE id_user = "+ req.signedCookies.id +""
+        const resSql = await db_all(sqlReq) 
+        const resSql2 = await db_all(sqlReq2)
+        res.render('index', {title: 'Market || Home', page: 'Home', items: resSql, favorite: resSql2})
+    }else if(idItem != undefined && req.signedCookies.id != undefined){
+        const sqlReq = "SELECT * FROM items WHERE type = "+ idItem +""
+        const sqlReq2 = "SELECT DISTINCT * FROM favorite WHERE id_user = "+ req.signedCookies.id +""
+        const resSql = await db_all(sqlReq) 
+        const resSql2 = await db_all(sqlReq2)
+        res.render('index', {title: 'Market || Home', page: 'Home', items: resSql, favorite: resSql2})
+    }else if (idItem == undefined){
+        const sqlReq = "SELECT * FROM items"
+        const resSql = await db_all(sqlReq) 
+        res.render('index', {title: 'Market || Home', page: 'Home', items: resSql})
     } else{
-        var sqlReq = "SELECT * FROM items WHERE type = "+ idItem +""
+        const sqlReq = "SELECT * FROM items WHERE type = "+ idItem +""
+        const resSql = await db_all(sqlReq) 
+        res.render('index', {title: 'Market || Home', page: 'Home', items: resSql})
     }
-    
-    const resSql = await db_all(sqlReq)  
-    res.render('index', {title: 'Market || Home', page: 'Home', items: resSql})
 })
 
 router.get('/search', async (req, res) => {

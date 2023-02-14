@@ -3,7 +3,9 @@
         <div class="img-block">
             <img src="data:image/png;base64,<%=locals.item.img %>">
             <div class="btn">
-                <span id="<%=locals.item.id %>">
+                <%var activeFavorite = ""
+                    if (locals.favorite != undefined) activeFavorite = "active"%>
+                <span id="<%=locals.item.id %>" class="<%=activeFavorite%>" onclick="inFavorite(this)">
                     <svg>
                         <use xlink:href="/main.svg#love-svg"></use>
                     </svg>
